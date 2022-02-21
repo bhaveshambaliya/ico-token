@@ -1,24 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Footer from "./Components/Footer";
+import Header from "./Components/Header/Header";
+import bgImg from "./images/p5.png";
+import About from "./Pages/About/About";
+import Contact from "./Pages/Contact";
+import FAQ from "./Pages/FAQ/FAQ";
+import Home from "./Pages/Home/Home";
+import Roadmap from "./Pages/Roadmap/Roadmap";
+import Token from "./Pages/TokenSale/Token";
+import { Element } from "react-scroll";
 
 function App() {
+
+  window.addEventListener('load',()=>{
+    window.scrollTo(0,0)
+  })
+
+  const [scrollBtn, setscrollBtn] = useState(false)
+
+  window.addEventListener('scroll',()=>{
+    if(window.scrollY > 250){
+      setscrollBtn(true)
+    }
+    else{
+      setscrollBtn(false)
+    }
+  })
+
+  const scrollUpfnc = ()=>{
+    window.scrollTo(0,0)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <img src={bgImg} className="bgImg" alt="background"></img>
+      {
+        scrollBtn ? <button onClick={()=>scrollUpfnc()} className='scrollUpBtn'>Scroll Up</button> : null
+      }
+      <Header />
+      <Element id="home">
+        <Home />
+      </Element>
+      <Element id="ico">
+        <About />
+      </Element>
+      <Element id="sale">
+        <Token />
+      </Element>
+      <Element id="roadmap">
+        <Roadmap />
+      </Element>
+      <Element id="faq">
+        <FAQ />
+      </Element>
+      <Element id="contact">
+        <Contact />
+      </Element>
+      <Footer />
+    </>
   );
 }
 
